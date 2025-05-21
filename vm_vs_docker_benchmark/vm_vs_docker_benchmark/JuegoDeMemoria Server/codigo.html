@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juego de Memoria con Frutas 🍎🍌</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 10px;
+      justify-content: center;
+      margin: 30px auto;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      background-color: #444;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .card.flipped {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .win-message {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: green;
+    }
+
+    .restart-button {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .restart-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Juego de Memoria con Frutas 🍓🍍</h1>
+  <div class="game-board" id="gameBoard"></div>
+  <div class="win-message" id="winMessage">🎉 ¡Felicidades! Has ganado. 🎉</div>
+  <button class="restart-button" id="restartButton" onclick="restartGame()">Volver a jugar</button>
+
+  <script>
+    const board = document.getElementById('gameBoard');
+    const winMessage = document.getElementById('winMessage');
+    const restartButton = document.getElementById('restartButton');
+
+    let cards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let lock = false;
+
+    const fruits = ["🍎", "🍌", "🍇", "🍉", "🍒", "🍓", "🍑", "🍍"];
+
+    function createCards() {
+      const pairValues = [...fruits, ...fruits]; // 8 pares
+      pairValues.sort(() => 0.5 - Math.random());
+
+      pairValues.forEach((emoji) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.value = emoji;
+        card.innerText = '';
+        card.addEventListener('click', flipCard);
+        board.appendChild(card);
+        cards.push(card);
+      });
+    }
+
+    function flipCard() {
+      if (lock || this.classList.contains('flipped')) return;
+
+      this.classList.add('flipped');
+      this.innerText = this.dataset.value;
+      flippedCards.push(this);
+
+      if (flippedCards.length === 2) {
+        lock = true;
+        setTimeout(checkMatch, 800);
+      }
+    }
+
+    function checkMatch() {
+      const [a, b] = flippedCards;
+      if (a.dataset.value !== b.dataset.value) {
+        a.classList.remove('flipped');
+        b.classList.remove('flipped');
+        a.innerText = '';
+        b.innerText = '';
+      } else {
+        matchedPairs++;
+        if (matchedPairs === fruits.length) {
+          showWinMessage();
+        }
+      }
+      flippedCards = [];
+      lock = false;
+    }
+
+    function showWinMessage() {
+      winMessage.style.display = 'block';
+      restartButton.style.display = 'inline-block';
+    }
+
+    function restartGame() {
+      board.innerHTML = '';
+      winMessage.style.display = 'none';
+      restartButton.style.display = 'none';
+      cards = [];
+      flippedCards = [];
+      matchedPairs = 0;
+      lock = false;
+      createCards();
+    }
+
+    createCards();
+  </script>
+</body>
+</html>
