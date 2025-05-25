@@ -108,16 +108,6 @@ En este proyecto se analiza el rendimiento y consumo de recursos de un Juego de 
 
 ---
 
-## Requisitos
-
-- **Python 3.8+** – Lenguaje base del proyecto.
-- **Docker** – Para ejecutar el proyecto en contenedores y comparar el rendimiento.
-- **VirtualBox** – Máquina virtual.
-- **Git/GitHub** – Control de versiones y almacenamiento del código fuente.
-- **Navegador web** – Para usar la interfaz de carga de imágenes.
-- **Editor de código** *(Visual Studio Code, PyCharm, etc.)* – Para desarrollo y pruebas.
----
-
 ## 📚 Recursos Utilizados
 
 ### 🛠️ Herramientas y Plataformas
@@ -127,21 +117,19 @@ En este proyecto se analiza el rendimiento y consumo de recursos de un Juego de 
 - **VirtualBox**: Máquinas virtuales. [virtualbox.org](https://www.virtualbox.org/)
 
 ---
+## Requisitos
 
-## ⚙️ Requisitos
+- **Python 3.8+** – Lenguaje base del proyecto.
+- **Docker** – Para ejecutar el proyecto en contenedores y comparar el rendimiento.
+- **VirtualBox** – Máquina virtual.
+- **Git/GitHub** – Control de versiones y almacenamiento del código fuente.
+- **Navegador web** – Para usar la interfaz de carga de imágenes.
+- **Editor de código** *(Visual Studio Code, PyCharm, etc.)* – Para desarrollo y pruebas.
 
-- Python 3.8+
-- Docker
-- VirtualBox (con Linux guest si aplica)
-- pip
 
 ### ✅ Librerías necesarias
 - requests
 - psutil
-
-
-
-
 ---
 
 ## 📦 Instalación de dependencias
